@@ -1,0 +1,7 @@
+App(
+    appid="js_subghz_txrx",
+    apptype=FlipperAppType.PLUGIN,
+    entry_point="js_subghz_txrx_ep",
+    requires=["js_app"],
+    sources=["lib/*.c", "functions/*.c"],
+)
