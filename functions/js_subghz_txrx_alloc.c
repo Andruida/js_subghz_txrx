@@ -1,9 +1,8 @@
 #include "js_subghz_txrx.h"
 
 void js_subghz_txrx_alloc(struct mjs* mjs) {
-    if(!js_subghz_txrx_check_arg_count(mjs, 0)) return;
-    mjs_val_t obj_inst = mjs_get(mjs, mjs_get_this(mjs), INST_PROP_NAME, ~0);
-    JsSubghzTxRxInst* js_subghz_txrx = mjs_get_ptr(mjs, obj_inst);
+    JS_FETCH_ARGS_OR_RETURN(mjs, JS_EXACTLY); // 0 args
+    JsSubghzTxRxInst* js_subghz_txrx = JS_GET_CONTEXT(mjs);
     furi_check(js_subghz_txrx);
 
     if(js_subghz_txrx->txrx != NULL) JS_THROW("alloc already called, call free first");

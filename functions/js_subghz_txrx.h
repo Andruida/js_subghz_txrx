@@ -1,7 +1,7 @@
 #pragma once
 
 #include "js_subghz_txrx_i.h"
-#include "../lib/js_modules.h"
+#include <applications/system/js_app/js_modules.h>
 #include "../lib/subghz_txrx_i.h"
 #include "../lib/util.h"
 
@@ -11,29 +11,11 @@
 
 #define TAG "js_subghz_txrx"
 
-#define REGISTER_FUNC(name) \
-    mjs_set(mjs, andruida_subghz_obj, (#name), ~0, MJS_MK_FN(js_subghz_txrx_##name));
+#define JS_THROW(err) JS_ERROR_AND_RETURN(mjs, MJS_INTERNAL_ERROR, err)
 
-#define JS_THROW(err)                                     \
-    do {                                                  \
-        mjs_prepend_errorf(mjs, MJS_INTERNAL_ERROR, err); \
-        mjs_return(mjs, MJS_UNDEFINED);                   \
-        return;                                           \
-    } while(0)
+#define JS_THROW_BAD_ARGS(err) JS_ERROR_AND_RETURN(mjs, MJS_BAD_ARGS_ERROR, err)
 
-#define JS_THROW_BAD_ARGS(err)                            \
-    do {                                                  \
-        mjs_prepend_errorf(mjs, MJS_BAD_ARGS_ERROR, err); \
-        mjs_return(mjs, MJS_UNDEFINED);                   \
-        return;                                           \
-    } while(0)
-
-#define JS_THROW_BAD_TYPE(err)                        \
-    do {                                              \
-        mjs_prepend_errorf(mjs, MJS_TYPE_ERROR, err); \
-        mjs_return(mjs, MJS_UNDEFINED);               \
-        return;                                       \
-    } while(0)
+#define JS_THROW_BAD_TYPE(err) JS_ERROR_AND_RETURN(mjs, MJS_BAD_ARGS_ERROR, err)
 
 void js_subghz_txrx_add(struct mjs* mjs);
 
@@ -44,6 +26,8 @@ void js_subghz_txrx_alloc(struct mjs* mjs);
 void js_subghz_txrx_free(struct mjs* mjs);
 
 void js_subghz_txrx_is_database_loaded(struct mjs* mjs);
+
+void js_subghz_txrx_load_decoder_by_name_protocol(struct mjs* mjs);
 
 void js_subghz_txrx_set_preset(struct mjs* mjs);
 

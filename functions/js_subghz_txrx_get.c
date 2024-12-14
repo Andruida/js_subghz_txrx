@@ -1,8 +1,7 @@
 #include "js_subghz_txrx.h"
 
 void js_subghz_txrx_get(struct mjs* mjs) {
-    mjs_val_t obj_inst = mjs_get(mjs, mjs_get_this(mjs), INST_PROP_NAME, ~0);
-    JsSubghzTxRxInst* js_subghz_txrx = mjs_get_ptr(mjs, obj_inst);
+    JsSubghzTxRxInst* js_subghz_txrx = JS_GET_CONTEXT(mjs);
     furi_check(js_subghz_txrx);
 
     // FURI_LOG_I(TAG, "js_subghz_txrx_get current: %d", js_subghz_txrx->counter);

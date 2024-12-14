@@ -8,16 +8,12 @@
     } while(0);
 
 void js_subghz_txrx_tx_start(struct mjs* mjs) {
-    if(!js_subghz_txrx_check_arg_count(mjs, 1)) return;
-    mjs_val_t obj_inst;
+    mjs_val_t data;
+    JS_FETCH_ARGS_OR_RETURN(mjs, JS_EXACTLY, JS_ARG_OBJ(&data)); // 1 args
     JsSubghzTxRxInst* js_subghz_txrx;
     SubGhzTxRx* instance;
-    if(!js_subghz_txrx_get_context(mjs, &obj_inst, &js_subghz_txrx, &instance)) return;
+    if(!js_subghz_txrx_get_context(mjs, &js_subghz_txrx, &instance)) return;
 
-    mjs_val_t data = mjs_arg(mjs, 0);
-    if(!mjs_is_object(data)) {
-        JS_THROW_BAD_TYPE("data must be an object");
-    }
     HAS_STRING(data, "Filetype");
     if(!mjs_is_number(mjs_get(mjs, data, "Version", ~0))) {
         JS_THROW_BAD_ARGS("data.Version has to be defined and has to be a number (usually 1)");
